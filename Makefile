@@ -1,5 +1,6 @@
 NAME = pipex
 
+NMBO = pipex_bonus
 CC = cc
 
 CFLAGS = -Werror -Wall -Wextra
@@ -8,24 +9,30 @@ SRCS = pipex.c\
 	pipex_utils.c\
 	libft/libft.a\
 
+SRCS_BNS = pipex_bonus.c\
+	pipex_bonus_utils.c\
+	libft/libft.a\
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-$(NAME):
-	make all -C libft
-	${CC} -g ${SRCS} -o ${NAME}
-
 all : $(NAME)
 
+$(NAME):
+	make all -C libft
+	${CC} ${CFLAGS} -g ${SRCS} -o ${NAME}
+
+bonus : $(NMBO)
+
+$(NMBO):
+	make all -C libft
+	$(CC) $(CFLAGS) $(SRCS_BNS) -o $(NMBO)
+
 clean :
-	rm -rf ${OBJS}
 		make clean -C libft
 
-fclean : clean
-	rm -rf $(NAME)
+fclean :
+	rm -rf $(NAME) $(NMBO)
 	make fclean -C libft
 
-re : fclean delete_file all 
-
-delete_file:
-	rm -f outfile
+re : fclean all

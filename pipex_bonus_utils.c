@@ -6,16 +6,17 @@
 /*   By: oukhiar <oukhiar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:24:26 by oukhiar           #+#    #+#             */
-/*   Updated: 2025/01/24 13:25:19 by oukhiar          ###   ########.fr       */
+/*   Updated: 2025/01/27 16:09:44 by oukhiar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-#include <fcntl.h>
-# include <unistd.h>
-#include <sys/wait.h>
+#include "pipex_bonus.h"
+
+void ft_handle_failed(void)
+{
+	perror("Error failed");
+   	exit(1);
+}
 
 int ft_open_file(char *file, int in_or_out)
 {
@@ -35,7 +36,6 @@ char *get_path(char **env)
 	int i;
 	int j;
 	char *name;
-	int cmp;
 
 	j = 0;
 	i = 0;
@@ -64,7 +64,7 @@ char *ft_check_command(char *cmd, char *path)
 	char *join_cmd;
 
 	i = 0;
-	splited_path = ft_split(path, ':');	
+	splited_path = ft_split(path, ':');
 	while (splited_path[i])
 	{
 		join_path = ft_strjoin(splited_path[i], "/");
@@ -72,7 +72,7 @@ char *ft_check_command(char *cmd, char *path)
 		if (!access(join_cmd, F_OK | X_OK))
 		{
 			free (join_path);
-			free (splited_path);
+			ft_free(splited_path);
 			return (join_cmd);
 		}
 		free (join_cmd);
@@ -96,4 +96,17 @@ void exec_cmd(char *cmd, char **env)
 		free(s_cmd);
 		exit(1);
 	}
+}
+
+void ft_free(char **adress)
+{
+	size_t i;
+
+	i = 0;
+	while (adress[i])
+	{
+		free(adress[i]);
+		i++;
+	}
+	free(adress);
 }

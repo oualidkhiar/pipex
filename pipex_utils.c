@@ -6,7 +6,7 @@
 /*   By: oukhiar <oukhiar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 22:56:21 by oukhiar           #+#    #+#             */
-/*   Updated: 2025/01/24 13:20:20 by oukhiar          ###   ########.fr       */
+/*   Updated: 2025/01/25 11:38:05 by oukhiar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char *get_path(char **env)
 	int i;
 	int j;
 	char *name;
-	int cmp;
 
 	j = 0;
 	i = 0;
@@ -67,7 +66,7 @@ char *ft_check_command(char *cmd, char *path)
 		if (!access(join_cmd, F_OK | X_OK))
 		{
 			free (join_path);
-			free (splited_path);
+			ft_free (splited_path);
 			return (join_cmd);
 		}
 		free (join_cmd);
@@ -88,7 +87,20 @@ void exec_cmd(char *cmd, char **env)
 	if (execve(ft_check_command(s_cmd[0], path), s_cmd, env) == -1)
 	{
 		perror("Error");
-		free(s_cmd);
+		ft_free(s_cmd);
 		exit(1);
 	}
+}
+
+void ft_free(char **adress)
+{
+	size_t i;
+
+	i = 0;
+	while (adress[i])
+	{
+		free(adress[i]);
+		i++;
+	}
+	free(adress);
 }
