@@ -6,36 +6,34 @@
 /*   By: oukhiar <oukhiar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:24:26 by oukhiar           #+#    #+#             */
-/*   Updated: 2025/01/27 16:09:44 by oukhiar          ###   ########.fr       */
+/*   Updated: 2025/02/01 22:28:53 by oukhiar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void ft_handle_failed(void)
+int	ft_open_file(char *file, int in_or_out)
 {
-	perror("Error failed");
-   	exit(1);
-}
-
-int ft_open_file(char *file, int in_or_out)
-{
-	int ret;
+	int	ret;
 
 	if (in_or_out == 0)
 		ret = open(file, O_RDONLY);
 	if (in_or_out == 1)
 		ret = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0744);
+	if (in_or_out == 3)
+		ret = open(file, O_CREAT | O_WRONLY | O_APPEND, 0744);
+	if (in_or_out == 2)
+		ret = open("/dev/random", O_RDONLY);
 	if (ret == -1)
-		exit(1);
-	return(ret);
+		ft_handle_failed();
+	return (ret);
 }
 
-char *get_path(char **env)
+char	*get_path(char **env)
 {
-	int i;
-	int j;
-	char *name;
+	int		i;
+	int		j;
+	char	*name;
 
 	j = 0;
 	i = 0;
@@ -56,12 +54,12 @@ char *get_path(char **env)
 	return (NULL);
 }
 
-char *ft_check_command(char *cmd, char *path)
+char	*ft_check_command(char *cmd, char *path)
 {
-	char **splited_path;
-	int i;
-	char *join_path;
-	char *join_cmd;
+	char	**splited_path;
+	int		i;
+	char	*join_path;
+	char	*join_cmd;
 
 	i = 0;
 	splited_path = ft_split(path, ':');
@@ -79,28 +77,39 @@ char *ft_check_command(char *cmd, char *path)
 		free (join_path);
 		i++;
 	}
-	free (splited_path);
+	ft_free (splited_path);
 	return (cmd);
 }
 
-void exec_cmd(char *cmd, char **env)
+void	exec_cmd(char *cmd, char **env)
 {
-	char **s_cmd;
-	char *path;
+	char	**s_cmd;
+	char	*path;
 
 	s_cmd = ft_split(cmd, ' ');
+	if (!s_cmd)
+	{
+		ft_putstr_fd("split failed, try again.\n", 2);
+		exit(1);
+	}
 	path = get_path(env);
+	if (!path)
+	{
+		ft_putstr_fd("Path not found, try again.\n", 2);
+		ft_free(s_cmd);
+		exit(1);
+	}
 	if (execve(ft_check_command(s_cmd[0], path), s_cmd, env) == -1)
 	{
 		perror("Error");
-		free(s_cmd);
+		ft_free(s_cmd);
 		exit(1);
 	}
 }
 
-void ft_free(char **adress)
+void	ft_free(char **adress)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (adress[i])

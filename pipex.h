@@ -6,7 +6,7 @@
 /*   By: oukhiar <oukhiar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 23:25:15 by oukhiar           #+#    #+#             */
-/*   Updated: 2025/01/25 11:38:53 by oukhiar          ###   ########.fr       */
+/*   Updated: 2025/02/01 17:11:58 by oukhiar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 # include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
-#include <fcntl.h>
+# include <fcntl.h>
 # include <unistd.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 
-void exec_cmd(char *cmd, char **env);
-char *ft_check_command(char *cmd, char *path);
-char *get_path(char **env);
-int ft_open_file(char *file, int in_or_out);
-void ft_free(char **adress);
-
+void	exec_cmd(char *cmd, char **env);
+char	*ft_check_command(char *cmd, char *path);
+char	*get_path(char **env);
+int		ft_open_file(char *file, int in_or_out);
+void	ft_free(char **adress);
 #endif
