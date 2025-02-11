@@ -6,16 +6,16 @@ CC = cc
 
 CFLAGS = -Werror -Wall -Wextra
 
-SRCS = pipex.c\
-	pipex_utils.c\
-	pipex_utils2.c
+SRCS = src/pipex.c\
+	src/pipex_utils.c\
+	src/pipex_utils2.c
 
-SRCS_BNS = pipex_bonus.c\
-	childs.c\
-	manage_files.c\
-	pipex_bonus_utils.c\
-	here_doc.c\
-	memory_managment.c
+SRCS_BNS = src_bonus/pipex_bonus.c\
+	src_bonus/childs.c\
+	src_bonus/manage_files.c\
+	src_bonus/pipex_bonus_utils.c\
+	src_bonus/here_doc.c\
+	src_bonus/memory_managment.c
 
 OBJS = $(SRCS:.c=.o)
 OBJS_BNS = $(SRCS_BNS:.c=.o)

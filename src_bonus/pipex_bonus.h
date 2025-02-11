@@ -6,13 +6,13 @@
 /*   By: oukhiar <oukhiar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 13:27:37 by oukhiar           #+#    #+#             */
-/*   Updated: 2025/02/10 11:27:47 by oukhiar          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:08:51 by oukhiar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
